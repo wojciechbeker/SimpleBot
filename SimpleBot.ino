@@ -1,4 +1,5 @@
 #include <ZumoMotors.h>
+#include <ZumoBuzzer.h>
 #include <Wire.h>
 #include <LSM303.h>
 
@@ -16,6 +17,8 @@ int dl, d, dr;
 
 //tworzenie obiektow
 ZumoMotors motors;
+ZumoBuzzer buzzer;
+const char sound_effect[] PROGMEM = "O4 T100 V15 L4 MS g12>c12>e12>G6>E12 ML>G2";
 
 void setup() {
   //rozpoczyna komunikacje
@@ -28,14 +31,17 @@ void setup() {
   pinMode(13, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+
+  buzzer.playMode(PLAY_AUTOMATIC);
+  buzzer.playFromProgramSpace(sound_effect);
   
   //ustawienie poczatkowe
   rozejrzyj();
 }
 
 void loop() {
- //rozejrzyj();
- //delay(3000); 
+ rozejrzyj();
+ delay(3000); 
 }
 
 //przeliczanie milisekund na odleglosc
@@ -73,6 +79,7 @@ void rozejrzyj() {
   delay(1000);
   servoSetPosition(1500);
 }
+
 //funkcje do obslugi serwa
 ISR(TIMER2_COMPA_vect) {
   servoTime += OCR2A + 1;
