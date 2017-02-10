@@ -17,8 +17,6 @@ int dl, d, dr;
 
 //tworzenie obiektow
 ZumoMotors motors;
-ZumoBuzzer buzzer;
-const char sound_effect[] PROGMEM = "O4 T100 V15 L4 MS g12>c12>e12>G6>E12 ML>G2";
 
 void setup() {
   //rozpoczyna komunikacje
@@ -31,9 +29,6 @@ void setup() {
   pinMode(13, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-
-  buzzer.playMode(PLAY_AUTOMATIC);
-  buzzer.playFromProgramSpace(sound_effect);
   
   //ustawienie poczatkowe
   rozejrzyj();
@@ -130,6 +125,7 @@ else
    TIMSK2 |= (1 << OCIE2A);  // Enable timer compare interrupt.
    sei();   // Enable interrupts.
  }
+ // ihguvgh
  void servoSetPosition(uint16_t highTimeMicroseconds)
  {
    TIMSK2 &= ~(1 << OCIE2A); // disable timer compare interrupt
